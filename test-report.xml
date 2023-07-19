@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testExecutions version="1">
+  <file path="D:\Projects\boohoo\__tests__\src\components\Cart.test.tsx">
+    <testCase name="Products component should call on press when tapped" duration="347"/>
+    <testCase name="Products component should call on press when tapped" duration="6"/>
+  </file>
+  <file path="D:\Projects\boohoo\__tests__\src\containers\ProductDetails.test.tsx">
+    <testCase name="Product Details component should hide add to cart button once it is clicked" duration="317"/>
+    <testCase name="Product Details component should increase the quantity when + button is clicked" duration="30"/>
+    <testCase name="Product Details component should decrease the quantity when - button is clicked" duration="25"/>
+  </file>
+  <file path="D:\Projects\boohoo\__tests__\src\containers\Cart.test.tsx">
+    <testCase name="Cart component show empty cart when there are no items added" duration="275"/>
+    <testCase name="Cart component should navigate to product details on tapping cart item" duration="108"/>
+    <testCase name="Cart component should increase the quantity when + button is clicked" duration="87"/>
+    <testCase name="Cart component should decrease the quantity when - button is clicked" duration="30"/>
+  </file>
+  <file path="D:\Projects\boohoo\__tests__\src\containers\Products.test.tsx">
+    <testCase name="Products component show loading when products is empty" duration="470"/>
+    <testCase name="Products component tapping on a product should navigate to product details" duration="157"/>
+  </file>
+</testExecutions>

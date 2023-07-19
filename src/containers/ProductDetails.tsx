@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Dimensions, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { ProductType } from "../types";
 import { useRoute } from '@react-navigation/native';
@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import { addItem, removeItem } from '../redux/slices/CartSlice';
 import { CartItem } from '../types/CartItem';
 import { QuantityButton } from '../components';
+import { ProductsTestIDs } from '../constants/TestIDs';
 
 interface IProps {
   product: ProductType
@@ -19,6 +20,7 @@ export const ProductDetails: React.FC = () => {
   const route = useRoute()
   const params = route.params as IProps
   const product = params.product
+  console.log('route', route)
 
   const dispatch = useAppDispatch();
   const cartItem = useAppSelector(state => state.cart.data?.find((item: CartItem) => item.product.id === product.id))
@@ -26,10 +28,10 @@ export const ProductDetails: React.FC = () => {
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       <View >
-        <FastImage
+        <Image
           source={{
             uri: product.img,
-            cache: FastImage.cacheControl.cacheOnly
+            cache: 'only-if-cached'
           }}
           defaultSource={require('../assets/placeholder.png')}
           style={styles.image}
@@ -48,6 +50,7 @@ export const ProductDetails: React.FC = () => {
             </View>
             {!cartItem ?
               <TouchableOpacity
+                testID={ProductsTestIDs.AddToCartTestId}
                 onPress={() => dispatch(addItem({ product: product, quantity: 1 }))}
                 style={styles.addToCartButton}>
                 <Text style={styles.addToCart}>Add to cart</Text>

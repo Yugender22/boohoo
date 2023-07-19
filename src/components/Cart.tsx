@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { withBadge, Icon } from 'react-native-elements';
+import { CartTestIDs } from '../constants/TestIDs';
 
 interface IProps {
   quantity: number,
@@ -9,10 +10,13 @@ interface IProps {
 export const Cart: React.FC<IProps> = (props: IProps) => {
 
   const CartBadge = withBadge(props.quantity)(Icon)
-  const CartIcon = () => (<CartBadge type={'material-community'} name='cart-outline' color={'black'} size={24} />)
+  const CartIcon = () => (<View testID={CartTestIDs.BadgeTestId}>
+    <CartBadge type={'material-community'} name='cart-outline' color={'black'} size={24} />
+  </View>)
 
   return (
     <TouchableOpacity
+      testID={CartTestIDs.CartTestId}
       onPress={props.onPress}
       style={styles.container}>
       <View style={styles.addToCartButton}>

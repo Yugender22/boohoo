@@ -1,18 +1,14 @@
 import { FC, useEffect } from "react";
-import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
+import { Alert, FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
 import { Loader, Product } from "../components";
 import { getProducts } from "../redux/service/getProducts";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import { ProductType } from "../types";
 import { NavRoutes } from "../navigation/NavRoutes";
-import {ParamListBase, useNavigation} from '@react-navigation/native';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import { ParamListBase, useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-
-interface ProductsProps {
-}
-
-export const Products: FC<ProductsProps> = () => {
+export const Products: FC = () => {
 
   const dispatch = useAppDispatch();
   const products = useAppSelector(state => state.products)
@@ -20,11 +16,17 @@ export const Products: FC<ProductsProps> = () => {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   useEffect(() => {
-    console.log('Products launch')
     const fetchProducts = async () => {
-      const resultAction = await dispatch(getProducts())
+      await dispatch(getProducts())
     }
-    fetchProducts().catch(error => console.log(error))
+
+    if (!products.data || products.data.length === 0) {
+      fetchProducts().catch(error => { 
+        Alert.alert('Error', 'Something went wrong! Please try again later.', [{
+          text: 'Ok',
+        }])
+      })
+    }
   }, [])
 
   const renderProducts = () => {
@@ -38,7 +40,7 @@ export const Products: FC<ProductsProps> = () => {
             <Product
               product={data.item}
               onPress={(product) => {
-                navigation.navigate(NavRoutes.ProductDetails, {product})
+                navigation.navigate(NavRoutes.ProductDetails, { product })
               }} />
           )
         }}

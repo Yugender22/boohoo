@@ -1,14 +1,13 @@
-import { FC, useEffect } from "react";
 import { FlatList, ListRenderItemInfo, StyleSheet, View } from "react-native";
 import { CartRow } from "../components";
-import { getProducts } from "../redux/service/getProducts";
 import { useAppDispatch, useAppSelector } from "../redux/store";
-import { ProductType } from "../types";
 import { NavRoutes } from "../navigation/NavRoutes";
 import { ParamListBase, useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { addItem, removeItem } from "../redux/slices/CartSlice";
 import { CartItem } from "../types/CartItem";
+import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { CartTestIDs } from "../constants/TestIDs";
 
 export const Cart: React.FC = () => {
 
@@ -18,9 +17,17 @@ export const Cart: React.FC = () => {
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
+  const emptyCart = () => {
+    return (
+      <View style={styles.emptyContainer} testID={CartTestIDs.EmptyCartTestId}>
+        <Icon name='cart-off' color={'#cccccc'} size={300} />
+      </View>
+    )
+  }
+
   const renderProducts = () => {
 
-    return cartItems?.data ? (
+    return (
       <FlatList
         keyExtractor={(item) => `${item.product.id}`}
         data={cartItems.data}
@@ -37,9 +44,8 @@ export const Cart: React.FC = () => {
           )
         }}
         ItemSeparatorComponent={() => <View style={styles.itemSeperator} />}
-      />
-    )
-      : <></>
+        ListEmptyComponent={emptyCart}
+      />)
   }
 
   return (
@@ -52,11 +58,16 @@ export const Cart: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   itemSeperator: {
     flex: 1,
     height: 1,
-    backgroundColor: '#CCCCCC'
+    backgroundColor: '#CCCCCC',
+  },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })

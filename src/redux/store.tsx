@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit'
+import { configureStore, combineReducers, PreloadedState } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
 import { logger } from 'redux-logger'
 import * as Redux from 'redux';
@@ -15,21 +15,32 @@ const middleware = () => {
   return middleware
 }
 
-export type RootState = ReturnType<typeof store.getState>
-
-const store = configureStore({
-  reducer: {
-    products: productSlice,
-    cart: cartSlice,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware()),
-
+const rootReducer = combineReducers({
+  products: productSlice,
+  cart: cartSlice,
 })
 
-export type AppDispatch = typeof store.dispatch
+const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(middleware()),
+    preloadedState,
+  })
+}
+
+// const store = configureStore({
+//   reducer: rootReducer,
+//   middleware: (getDefaultMiddleware) =>
+//     getDefaultMiddleware().concat(middleware()),
+// })
+
+
+export type RootState = ReturnType<typeof rootReducer>
+export type AppStore = ReturnType<typeof setupStore>
+export type AppDispatch = AppStore['dispatch']
 
 export const useAppDispatch: () => AppDispatch = useDispatch
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
 
-export default store;
+export default setupStore;

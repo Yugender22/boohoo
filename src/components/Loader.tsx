@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { TestIDs } from '../constants/TestIDs';
 
 interface LoaderProps {
   animating: boolean
@@ -8,7 +8,7 @@ interface LoaderProps {
 
 export const Loader: React.FC<LoaderProps> = (props: LoaderProps) => {
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={TestIDs.LoaderTestId}>
       <ActivityIndicator animating={props.animating} size={"large"} />
     </View>
   );

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { ProductType } from '../types';
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, TouchableOpacity, Image } from 'react-native';
 import FastImage from 'react-native-fast-image';
 import { formatAmount } from '../utils/util';
 import { CartItem } from '../types/CartItem';
 import { QuantityButton } from './QuantityButton';
+import { CartTestIDs } from '../constants/TestIDs';
 
 interface IProps {
   item: CartItem
@@ -17,13 +18,14 @@ export const CartRow: React.FC<IProps> = (props: IProps) => {
 
   return (
     <TouchableOpacity
+      testID={CartTestIDs. CartRowTestId}
       style={[styles.container]}
       onPress={() => props.onPress(props.item.product)}>
       <View style={styles.rowFlex}>
-        <FastImage
+        <Image
           source={{
             uri: props.item.product.img,
-            cache: FastImage.cacheControl.cacheOnly
+            cache: 'only-if-cached'
           }}
           defaultSource={require('../assets/placeholder.png')}
           style={styles.image}
@@ -40,7 +42,7 @@ export const CartRow: React.FC<IProps> = (props: IProps) => {
             </View>
 
           </View>
-          <View style={{ flex: 1, maxWidth: Dimensions.get('window').width / 2.5, marginTop: 10 }}>
+          <View style={[ styles.quantityButton, { maxWidth: Dimensions.get('window').width / 2.5 }]}>
             <QuantityButton quantity={props.item.quantity} increase={props.increase} decrease={props.decrease} />
           </View>
         </View>
@@ -73,5 +75,9 @@ const styles = StyleSheet.create({
   textView: {
     flexDirection: 'column',
     justifyContent: 'center'
+  },
+  quantityButton: {
+    flex: 1, 
+    marginTop: 10
   }
 })

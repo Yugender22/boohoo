@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { QuantityTestIDs } from '../constants/TestIDs';
 
 interface IProps {
   quantity: number,
@@ -9,14 +10,16 @@ interface IProps {
 export const QuantityButton: React.FC<IProps> = (props: IProps) => {
 
   return (
-    <View style={styles.addToCartButton}>
+    <View style={styles.addToCartButton} testID={QuantityTestIDs.QuantityTestId}>
       <TouchableOpacity
+        testID={QuantityTestIDs.DecreaseTestId}
         onPress={props.decrease}
         style={styles.container}>
         <Text style={styles.addToCart}>-</Text>
       </TouchableOpacity>
-      <Text style={[styles.addToCart, styles.quantityColor]}>{props.quantity}</Text>
+      <Text testID={QuantityTestIDs.QuantityValueTestId} style={[styles.addToCart, styles.quantityColor]}>{props.quantity}</Text>
       <TouchableOpacity
+        testID={QuantityTestIDs.IncreaseTestId}
         onPress={props.increase}
         style={styles.container}>
         <Text style={styles.addToCart}>+</Text>

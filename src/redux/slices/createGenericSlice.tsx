@@ -2,7 +2,6 @@ import { ActionReducerMapBuilder, PayloadAction, SliceCaseReducers, ValidateSlic
 import { Error } from "../../types"
 
 export interface GenericState<T> {
-  state: import("d:/Projects/boohoo/src/types/CartItem").CartItem
   data?: T
   isLoading: boolean,
   error?: string,

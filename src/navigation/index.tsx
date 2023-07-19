@@ -2,7 +2,7 @@ import { NavigationContainer, useNavigation, ParamListBase } from '@react-naviga
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import * as React from 'react';
 import { NavRoutes } from './NavRoutes';
-import { Products, ProductDetails, Menu, Cart as CartScreen } from '../containers';
+import { Products, ProductDetails, Cart as CartScreen } from '../containers';
 import { Cart } from '../components';
 import { useAppSelector } from '../redux/store';
 import { CartItem } from '../types/CartItem';
@@ -43,8 +43,6 @@ export const Navigation: React.FC = () => {
             headerRight: headerRight(navigation)
           })}
         />
-
-        <Stack.Screen name={NavRoutes.Menu} component={Menu} />
         <Stack.Screen name={NavRoutes.Cart} component={CartScreen} />
       </Stack.Navigator>
     </NavigationContainer>
