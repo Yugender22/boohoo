@@ -3,7 +3,6 @@
 ### Note
 This app is developed on windows machine, so the iOS build needs some extra setup to get working.
 
-
 ### Video
 Here is a sample video of this shopping application
 
